@@ -9,6 +9,8 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function () {
+    'use strict';
+
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -95,7 +97,7 @@ $(function () {
 
         beforeEach((done) => {
             loadFeed(0, () => {
-                done()
+                done();
             });
         });
 
@@ -111,19 +113,20 @@ $(function () {
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-    describe('New Feed Selection', (done) => {
+    describe('New Feed Selection', () => {
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
 
         // Items expected to have changed
-        let feedList, entry = '<p>hello there akyya</p>', title;
+        const entry = '<p>hello there akyya</p>';
+        let title;
 
         beforeEach( (done) => {
             
             // Initialize first feed to load
-            feedList = $('.feed-list').children();
+            const feedList = $('.feed-list').children();
             expect(feedList.length).toBeGreaterThan(2);
 
             loadFeed(0, () => {
