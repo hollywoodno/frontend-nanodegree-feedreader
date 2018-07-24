@@ -117,15 +117,26 @@ $(function () {
          * Remember, loadFeed() is asynchronous.
          */
 
-        let feedList, feed, title;
+        // Items expected to have changed
+        let feedList, entry = '<p>hello there akyya</p>', title;
 
         beforeEach( (done) => {
+            
             // Initialize first feed to load
             feedList = $('.feed-list').children();
             expect(feedList.length).toBeGreaterThan(2);
 
             loadFeed(0, () => {
                 title = $('.header-title').text();
+                
+                // Add HTML to make it easier to check that content changes
+                $('.feed').append(entry);
+                done();
+            });
+        });
+
+        afterEach( (done) => {
+            loadFeed(0, () => {
                 done();
             });
         });
@@ -133,9 +144,14 @@ $(function () {
         it('is loaded', (done) => {
             // Load the new feed
             loadFeed(1, () => {
+                
                 expect($('.header-title')).not.toBeNull();
                 expect($('.header-title').text()).not.toBe(title);
                 expect($('.header-title').text()).not.toBe('');
+
+                const lastFeed = $('.feed').children().last().text();
+                expect(lastFeed).not.toBe(entry);
+                
                 done();
             });
         });
