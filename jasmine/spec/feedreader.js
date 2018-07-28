@@ -65,7 +65,7 @@ $(function () {
         const body = document.querySelector('body');
 
         it('starts open', () => {
-            expect(body.classList).toContain('menu-hidden');
+            expect(body).toHaveClass('menu-hidden');
         });
 
         /* TODO: Write a test that ensures the menu changes
@@ -75,14 +75,14 @@ $(function () {
          */
         it('icon toggles menu display', () => {
             // Start with menu closed
-            expect(body.classList).toContain('menu-hidden');
+            expect(body).toHaveClass('menu-hidden');
 
             const menu = document.querySelector('.menu-icon-link');
             menu.click();
-            expect(body.classList).not.toContain('menu-hidden');
-
+            expect(body).not.toHaveClass('menu-hidden');
+            
             menu.click();
-            expect(body.classList).toContain('menu-hidden');
+            expect(body).toHaveClass('menu-hidden');
         });
     });
 
